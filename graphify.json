@@ -1,0 +1,76 @@
+{
+  "project": "Expense-Tracker",
+  "version": "1.0.0",
+  "description": "Lightweight CLI expense tracker with JSON persistence and input validation",
+  "nodes": [
+    {
+      "id": "tracker.py",
+      "type": "module",
+      "description": "Main entry point and CLI commands definition",
+      "functions": [
+        "get_storage_path",
+        "load_expenses",
+        "save_expenses",
+        "parse_positive_float",
+        "parse_positive_int",
+        "cmd_add",
+        "cmd_list",
+        "cmd_total",
+        "cmd_delete",
+        "build_parser",
+        "main"
+      ]
+    },
+    {
+      "id": "pyproject.toml",
+      "type": "config",
+      "description": "Project packaging and script entry point tracker = tracker:main"
+    },
+    {
+      "id": "tests/test_tracker.py",
+      "type": "test_suite",
+      "description": "Pytest automated tests covering CLI functionality, edge cases, and corrupted data",
+      "functions": [
+        "run_cli",
+        "test_add_expense",
+        "test_add_bad_input",
+        "test_list_and_total_with_filtering",
+        "test_delete_expense",
+        "test_corrupted_json_handling"
+      ]
+    },
+    {
+      "id": "README.md",
+      "type": "documentation",
+      "description": "Project overview, installation guide, commands, and examples"
+    },
+    {
+      "id": "expenses.json",
+      "type": "data_store",
+      "description": "Default JSON persistence file storing array of expense records"
+    }
+  ],
+  "edges": [
+    {
+      "source": "tests/test_tracker.py",
+      "target": "tracker.py",
+      "relation": "tests"
+    },
+    {
+      "source": "tracker.py",
+      "target": "expenses.json",
+      "relation": "persists_to"
+    },
+    {
+      "source": "pyproject.toml",
+      "target": "tracker.py",
+      "relation": "exposes_cli"
+    },
+    {
+      "source": "README.md",
+      "target": "tracker.py",
+      "relation": "documents"
+    }
+  ]
+}
+
